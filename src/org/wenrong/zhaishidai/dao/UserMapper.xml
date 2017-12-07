@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wenrong.zhaishidai.dao.UserMapper">
+	
+	<select id="getUserById" parameterType="String" resultType="User">
+		select * from users where id=#{id}
+	</select>
+	
+	<!-- 查询用户是否存在  -->
+	<select id="getUserByName" parameterType="String" resultType="User">
+		select * from users where account=#{account}
+	</select>
+	
+	<insert id="saveUser" parameterType="User">
+		
+		insert into users values(#{id},#{account},#{password})
+	
+	</insert>
+	
+</mapper>

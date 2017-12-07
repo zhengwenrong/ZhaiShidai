@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.wenrong.zhaishidai.dao.MemuMapper"> 
+	<!--  保存菜单到数据库中 -->
+	<sql id="saveMemu">
+		
+	</sql>
+	
+	<insert parameterType="Memu" id="saveMemu" >
+		insert into memus values(#{id},#{name},#{price},#{category},#{imageurl},#{description},#{count})
+	
+	</insert>
+	
+	<select id="getMemu" parameterType="QueryPojo" resultType="Memu">
+		
+		select id,category,name,price,description,imageurl from memus 
+		<where>
+			<if test="menuName!=null and menuName != ''">
+				 name like "%" #{menuName} "%"
+			</if>
+			<if test="category != null and category != ''">
+				AND category like "%" #{category} "%"
+			</if>
+		</where>
+		limit #{startIndex},#{pageSize}
+		
+	</select>
+	
+	<select id="getMemuCount" parameterType="QueryPojo" resultType="Integer">
+		select count(1) from memus 
+		<where>
+			<if test="menuName!=null and menuName != ''">
+				name like "%" #{menuName} "%"
+			</if>
+			<if test="category!=null and category != ''"> 
+				and category like "%" #{category} "%"	
+			</if>
+		</where>
+	</select>
+
+</mapper>

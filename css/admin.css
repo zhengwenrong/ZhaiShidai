@@ -1,0 +1,42 @@
+
+body {
+	overflow-x: hidden;
+}
+
+.left-slide {
+    height: 950px;
+    background: #F8F8F8;
+}
+
+.right-content {
+    height: 800px;
+    background: #FFFFFF;
+}
+
+.left-menu-list>li>a {
+
+    display: block;
+    text-align: center;
+    line-height: 30px;
+    text-decoration: none;
+}
+
+.left-menu-list>li>a:hover {
+
+    background: #EEEEEE;
+
+}
+
+.navbar-header>a {
+
+    margin-right: 10px;
+    text-decoration: none;
+    color: #777777;
+    cursor: pointer;
+
+}
+
+.navbar-header>a:hover {
+    color: #5E5E5E;
+
+}
