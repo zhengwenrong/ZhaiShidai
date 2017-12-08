@@ -18,37 +18,71 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
-	@RequestMapping("/register.action")
-	public String userRegister(Model model,User user){
+
+	@RequestMapping("/login.action")
+	public String userLogin(User user){
 		
 		
+		try{
+			userService.saveUser(user);
+			
+		}catch (Exception e) {
+			return "redirect:login";
+		
+		}
 		
 		
-		return "login";
+		return "redirect:index";
 	}
 	
+	
+	
+	/**
+	 * 用户注册
+	 * @param model
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping("/register.action")
+	public String userRegister(User user) {
+
+		try {
+
+			userService.saveUser(user);
+			return "redirect:login";
+		} catch (Exception e) {
+
+			return "redirect:register";
+
+		}
+
+	}
+
 	@RequestMapping("/toRegisterPage.action")
-	public String toRegitsterPage(){
+	public String toRegitsterPage() {
 
 		return "register";
 	}
-	
+
 	/**
 	 * 检查用户ajax调用
+	 * 
 	 * @param account
 	 */
-	@RequestMapping("/check.action")
+	@RequestMapping(value = "/check.action", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public void checkUser(@RequestBody String account){
-		
-		JSONObject object = JSON.parseObject(account);
-		boolean checkUser = userService.getCheckUser(object.getString(""));
-		
-		
-		
-		
+	public String checkUser(String username) {
+
+		try {
+			boolean result = userService.getCheckUser(username);
+
+			return "{status:200,result:" + result + "}";
+
+		} catch (Exception e) {
+
+			return "{status:500,result:未知错误!}";
+		}
+
 	}
-	
-	
+
 }

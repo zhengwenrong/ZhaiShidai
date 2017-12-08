@@ -34,10 +34,10 @@ public class UserServiceImpl implements UserService{
 		System.out.println("user: "+user);
 		if(user == null) {
 			
-			return false;
+			return true;
 			
 		}else {
-			return true;
+			return false;
 		}
 		
 	}
