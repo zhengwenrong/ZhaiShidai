@@ -9,8 +9,15 @@ public class User {
 	public int id;//用户的id
 	public String password;//用户密码
 	public String account;//用户帐号
+	public String usertoken;//用户登陆令牌
 	
 
+	public String getUsertoken() {
+		return usertoken;
+	}
+	public void setUsertoken(String usertoken) {
+		this.usertoken = usertoken;
+	}
 	public int getId() {
 		return id;
 	}

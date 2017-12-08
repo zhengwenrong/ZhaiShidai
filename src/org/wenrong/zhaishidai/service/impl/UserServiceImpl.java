@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.wenrong.zhaishidai.dao.UserMapper;
 import org.wenrong.zhaishidai.pojo.User;
 import org.wenrong.zhaishidai.service.UserService;
+import org.wenrong.zhaishidai.utils.MD5Utils;
+import org.wenrong.zhaishidai.utils.UUIDUtils;
 @Service
 public class UserServiceImpl implements UserService{
 
@@ -22,8 +24,8 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void saveUser(User user) {
 		
+		user.setPassword(MD5Utils.md5(user.getPassword()));
 		userMapper.saveUser(user);
-		
 		
 	}
 
@@ -42,6 +44,22 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
-	
-	
+	@Override
+	public User login(User user) {
+		
+		user.setPassword(MD5Utils.md5(user.getPassword()));
+		User userInDb = userMapper.getUser(user);
+		
+		if(userInDb == null){
+			
+			return null;
+		}else {
+			
+			//更新用户token
+			user.setUsertoken(UUIDUtils.getRandomStr());
+			userMapper.updateUserToken(user);
+			return user;
+		}
+		
+	}
 }

@@ -1,16 +1,14 @@
 package org.wenrong.zhaishidai.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.wenrong.zhaishidai.pojo.User;
 import org.wenrong.zhaishidai.service.UserService;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 
 @Controller
 @RequestMapping("/user")
@@ -20,11 +18,18 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping("/login.action")
-	public String userLogin(User user){
-		
+	public String userLogin(User user,HttpServletRequest request,HttpServletResponse response){
 		
 		try{
-			userService.saveUser(user);
+			
+			User login = userService.login(user);
+			
+			if(login!=null) {
+				
+				request.getSession().setAttribute("user",login);
+				Cookie cookie = new Cookie("usertoken",user.getUsertoken());
+				response.addCookie(cookie);
+			}
 			
 		}catch (Exception e) {
 			return "redirect:login";
@@ -33,6 +38,23 @@ public class UserController {
 		
 		
 		return "redirect:index";
+	}
+	
+	/**
+	 * 检查用户登陆状态
+	 * @return
+	 */
+	@RequestMapping("/checkstatus.action")
+	public String checkUserStatus(HttpServletRequest request,String usertoken) {
+		
+		User user = (User) request.getSession().getAttribute("user");
+		
+		System.out.println();
+		
+		
+		
+		return null;
+		
 	}
 	
 	

@@ -17,6 +17,12 @@ public interface UserService {
 	public void saveUser(User user);
 	
 	/**
+	 * 用户登陆
+	 * @return
+	 */
+	public User login(User user);
+	
+	/**
 	 * 通过昵称查询用户
 	 * 	注册时检查用户是否重复
 	 * @param userName

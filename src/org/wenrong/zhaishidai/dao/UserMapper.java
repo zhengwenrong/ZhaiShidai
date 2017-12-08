@@ -22,4 +22,18 @@ public interface UserMapper {
 	 */
 	public User getUserByName(String userName);
 	
+	/**
+	 * 更新用户token
+	 * @param token
+	 * @return
+	 */
+	public void updateUserToken(User user);
+	
+	/**
+	 * 通过用户名和ID获取用户
+	 * @param user
+	 * @return
+	 */
+	public User getUser(User user);
+	
 }

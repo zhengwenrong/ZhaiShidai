@@ -14,9 +14,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="saveUser" parameterType="User">
-		
-		insert into users values(#{id},#{account},#{password})
-	
+		insert into users (id,account,password) values(#{id},#{account},#{password})
 	</insert>
+	<!-- 更新用户token -->
+	<update id="updateUserToken" parameterType="User">
+	     update users set usertoken = #{usertoken} where id=#{id}
+	</update>
+	
+	<!-- 通过用户名和ID获取用户 -->
+	<select id="getUser" parameterType="User" resultType="User">
+		select * from users where account=#{account} and password=#{password}
+	</select>
 	
 </mapper>
